@@ -15,7 +15,7 @@ from components.DrawBoundingRectangle.src.utils.response import build_response
 from components.DrawBoundingRectangle.src.models.PackageModel import PackageModel
 
 
-class DrawBoundingBox(Component):
+class DrawBoundingRectangle(Component):
     def __init__(self, request, bootstrap):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
@@ -93,15 +93,15 @@ class DrawBoundingBox(Component):
 
         return color_dict
 
-    def draw_bounding_box(self, image, color_dict):
+    def draw_bounding_Rectangle(self, image, color_dict):
         for idx, detection in enumerate(self.detections):
-            if not detection["boundingBox"]:
+            if not detection["boundingRectangle"]:
                 continue
 
-            left = detection["boundingBox"]["left"]
-            top = detection["boundingBox"]["top"]
-            width = detection["boundingBox"]["width"]
-            height = detection["boundingBox"]["height"]
+            left = detection["boundingRectangle"]["left"]
+            top = detection["boundingRectangle"]["top"]
+            width = detection["boundingRectangle"]["width"]
+            height = detection["boundingRectangle"]["height"]
 
             x1 = int(left)
             y1 = int(top)
@@ -122,9 +122,9 @@ class DrawBoundingBox(Component):
                 center_x = left + width / 2.0
                 center_y = top + height / 2.0
                 rect = ((center_x, center_y), (width, height), angle_deg)
-                box = cv2.boxPoints(rect)
-                box = np.int0(box)
-                cv2.drawContours(image, [box], 0, color, self.config_thickness)
+                Rectangle = cv2.RectanglePoints(rect)
+                Rectangle = np.int0(Rectangle)
+                cv2.drawContours(image, [Rectangle], 0, color, self.config_thickness)
             else:
                 if self.radius > 0:
                     cv2.ellipse(image, (x1 + self.radius, y1 + self.radius), (self.radius, self.radius), 180, 0, 90, color, self.config_thickness)
@@ -144,7 +144,7 @@ class DrawBoundingBox(Component):
 
     def run(self):
         img = Image.get_frame(img=self.image, redis_db=self.redis_db)
-        img.value = self.draw_bounding_box(img.value, self.select_color())
+        img.value = self.draw_bounding_Rectangle(img.value, self.select_color())
         self.image = Image.set_frame(img=img, package_uID=self.uID, redis_db=self.redis_db)
         packageModel = build_response(context=self)
         return packageModel
