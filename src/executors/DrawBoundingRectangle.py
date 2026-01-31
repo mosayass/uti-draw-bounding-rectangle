@@ -95,13 +95,13 @@ class DrawBoundingRectangle(Component):
 
     def draw_bounding_Rectangle(self, image, color_dict):
         for idx, detection in enumerate(self.detections):
-            if not detection["boundingRectangle"]:
+            if not detection["boundingBox"]:
                 continue
 
-            left = detection["boundingRectangle"]["left"]
-            top = detection["boundingRectangle"]["top"]
-            width = detection["boundingRectangle"]["width"]
-            height = detection["boundingRectangle"]["height"]
+            left = detection["boundingBox"]["left"]
+            top = detection["boundingBox"]["top"]
+            width = detection["boundingBox"]["width"]
+            height = detection["boundingBox"]["height"]
 
             x1 = int(left)
             y1 = int(top)
