@@ -57,7 +57,7 @@ class ConfigPaletteSize(Config):
     Determines the total number of distinct colors to generate from the selected palette.
     """
     name: Literal["ConfigPaletteSize"] = "ConfigPaletteSize"
-    value: int = Field(ge=1, le=100)
+    value: int = Field(default=10, ge=1, le=100)
     type: Literal["number"] = "number"
     field: Literal["textInput"] = "textInput"
 
@@ -300,7 +300,7 @@ class ConfigThickness(Config):
     Sets the thickness of the bounding box lines in pixels.
     """
     name: Literal["ConfigThickness"] = "ConfigThickness"
-    value: int = Field(ge=1, le=10)
+    value: int = Field(default=2,ge=1, le=10)
     type: Literal["number"] = "number"
     field: Literal["textInput"] = "textInput"
 
@@ -328,6 +328,7 @@ class Detection(Detection):
     keyPoints: Optional[List[KeyPoints]] = None
     # We also accept 'angle' if OBB mode was used, though unlikely for segmentation
     angle: Optional[float] = None
+
 class InputDetections(Input):
     name: Literal["inputDetections"] = "inputDetections"
     value: Union[List[Detection], List[ROI]]
