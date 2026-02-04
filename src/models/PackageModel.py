@@ -312,6 +312,10 @@ class ConfigThickness(Config):
 
 
 class DrawBoundingRectangleConfigs(Configs):
+    """
+    Aggregates all visualization settings for drawing bounding rectangles.
+    Controls color assignment logic, color palettes, line thickness, and corner radius.
+    """
     configColorAxis: ConfigColorAxis
     configColorPalette: ConfigColorPalette
     configThickness: ConfigThickness
@@ -319,6 +323,9 @@ class DrawBoundingRectangleConfigs(Configs):
 
     class Config:
         title = "Draw Bounding Box Configurations"
+        json_schema_extra = {
+            "shortDescription": "Bounding Box Visual Settings"
+        }
 
 class Detection(Detection):
     """
